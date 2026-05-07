@@ -200,23 +200,17 @@ p:last-child{margin-bottom:0}
   height:72px;
 }
 .brand{
-  font-family:var(--font-en);
-  font-weight:700;
-  letter-spacing:-.01em;
-  font-size:1rem;
-  color:var(--text);
-  position:relative;
+  display:flex;
+  align-items:center;
 }
-.brand::after{
-  content:'';
-  position:absolute;
-  bottom:-4px;
-  inset-inline-start:0;
-  width:24px;
-  height:2px;
-  background:var(--accent);
+.brand-logo{
+  height:32px;
+  width:auto;
+  display:block;
+  transition:opacity .2s ease;
 }
-body.lang-ur .brand{font-family:var(--font-en)}
+.brand:hover .brand-logo{opacity:.85}
+@media(min-width:768px){.brand-logo{height:36px}}
 .nav-links{
   display:none;
   align-items:center;
@@ -855,15 +849,13 @@ body.lang-ur .form-direct{font-size:.95rem}
     gap:64px;
   }
 }
-.footer-brand{
-  font-weight:700;
-  font-size:1rem;
-  margin-bottom:12px;
-  font-family:var(--font-en);
-  position:relative;
-  display:inline-block;
+.footer-brand{margin-bottom:16px}
+.footer-logo{
+  height:28px;
+  width:auto;
+  display:block;
+  opacity:.8;
 }
-body.lang-ur .footer-brand{font-family:var(--font-en)}
 .footer-tag{color:var(--text-muted);font-size:.95rem;max-width:380px;line-height:1.55}
 body.lang-ur .footer-tag{line-height:2;font-size:1rem}
 .footer-meta{
@@ -909,7 +901,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
 
 <header class="nav" id="nav">
   <div class="container nav-inner">
-    <a href="#hero" class="brand" aria-label="Unlearn to Return — home">Unlearn to Return</a>
+    <a href="#hero" class="brand" aria-label="Unlearn to Return — home"><img src="images/logo.png" alt="Unlearn to Return" class="brand-logo" width="528" height="65"></a>
     <nav class="nav-links" aria-label="Primary">
       <a href="#philosophy" data-i18n="nav.philosophy">Philosophy</a>
       <a href="#lenses" data-i18n="nav.curriculum">Curriculum</a>
@@ -1114,7 +1106,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
   <div class="container">
     <div class="footer-inner">
       <div>
-        <div class="footer-brand">Unlearn to Return</div>
+        <div class="footer-brand"><img src="images/logo.png" alt="Unlearn to Return" class="footer-logo" width="528" height="65"></div>
         <div class="footer-tag" data-i18n="footer.tag">A women-only learning circle for those who want to think, not just obey.</div>
       </div>
       <div class="footer-meta">
