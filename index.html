@@ -777,6 +777,26 @@ body.lang-ur .field textarea{line-height:1.9}
 }
 .field input::placeholder,
 .field textarea::placeholder{color:#4a4a4a}
+.char-count{
+  display:block;
+  text-align:right;
+  font-size:.75rem;
+  color:var(--text-muted);
+  margin-top:6px;
+  opacity:.7;
+  transition:color .2s ease;
+}
+.char-count.near-limit{color:var(--accent);opacity:1}
+.char-count.at-limit{color:#e05252;opacity:1}
+.field-error{
+  font-size:.8rem;
+  color:#e05252;
+  margin-top:4px;
+  display:none;
+}
+.field.has-error input,
+.field.has-error textarea{border-color:#e05252}
+.field.has-error .field-error{display:block}
 
 .radio-group{
   display:flex;
@@ -927,6 +947,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       <a href="#lenses" data-i18n="nav.curriculum">Curriculum</a>
       <a href="#details" data-i18n="nav.details">Details</a>
       <a href="#apply" data-i18n="nav.apply">Apply</a>
+      <a href="blog/" data-i18n="nav.blog">Blog</a>
     </nav>
     <div class="nav-actions">
       <div class="lang-toggle" role="group" aria-label="Language">
@@ -1058,7 +1079,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         <div class="field-row">
           <div class="field">
             <label for="f-name"><span data-i18n="form.fullName">Full Name</span><span class="field-required">*</span></label>
-            <input id="f-name" name="name" type="text" required autocomplete="name">
+            <input id="f-name" name="name" type="text" required autocomplete="name" minlength="2" maxlength="60">
           </div>
           <div class="field">
             <label for="f-age"><span data-i18n="form.age">Age</span><span class="field-required">*</span></label>
@@ -1068,16 +1089,17 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         <div class="field-row">
           <div class="field">
             <label for="f-city"><span data-i18n="form.city">City</span><span class="field-required">*</span></label>
-            <input id="f-city" name="city" type="text" required autocomplete="address-level2">
+            <input id="f-city" name="city" type="text" required autocomplete="address-level2" minlength="2" maxlength="40">
           </div>
           <div class="field">
             <label for="f-whatsapp"><span data-i18n="form.whatsapp">WhatsApp Number</span><span class="field-required">*</span></label>
-            <input id="f-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+92 3XX XXXXXXX">
+            <input id="f-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+92 3XX XXXXXXX" minlength="10" maxlength="16">
           </div>
         </div>
         <div class="field">
           <label for="f-why"><span data-i18n="form.why">Why do you want to learn?</span><span class="field-required">*</span></label>
-          <textarea id="f-why" name="why" required minlength="100" data-i18n-attr="placeholder:form.whyPlaceholder" placeholder="Be specific. We read every word."></textarea>
+          <textarea id="f-why" name="why" required minlength="10" maxlength="500" data-i18n-attr="placeholder:form.whyPlaceholder" placeholder="Be specific. We read every word."></textarea>
+          <span class="char-count" data-for="f-why">0 / 500</span>
         </div>
         <div class="field">
           <span class="field-group-label" data-i18n="form.canPay">Can you pay the PKR 1,100 fee?<span class="field-required">*</span></span>
@@ -1098,7 +1120,8 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         </div>
         <div class="field conditional" id="worthy-field">
           <label for="f-worthy"><span data-i18n="form.worthy">Why are you a worthy learner?</span><span class="field-required">*</span></label>
-          <textarea id="f-worthy" name="worthy" minlength="100" data-i18n-attr="placeholder:form.worthyPlaceholder" placeholder="Sincerity. Specifics. Honesty."></textarea>
+          <textarea id="f-worthy" name="worthy" minlength="10" maxlength="500" data-i18n-attr="placeholder:form.worthyPlaceholder" placeholder="Sincerity. Specifics. Honesty."></textarea>
+          <span class="char-count" data-for="f-worthy">0 / 500</span>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn" data-i18n="form.submit">Send via WhatsApp</button>
@@ -1155,7 +1178,8 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         philosophy:"Philosophy",
         curriculum:"Curriculum",
         details:"Details",
-        apply:"Apply"
+        apply:"Apply",
+        blog:"Blog"
       },
       hero:{
         headline:"Study the Quran like your mind depends on it.",
@@ -1258,7 +1282,8 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         philosophy:"فلسفہ",
         curriculum:"نصاب",
         details:"تفصیلات",
-        apply:"داخلہ"
+        apply:"داخلہ",
+        blog:"بلاگ"
       },
       hero:{
         headline:"قرآن کو ایسے پڑھیں جیسے آپ کی عقل کا انحصار اسی پر ہو۔",
@@ -1496,13 +1521,48 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
     });
   }
 
+  /* Character counters */
+  function initCharCounters(){
+    var counters=document.querySelectorAll('.char-count[data-for]');
+    counters.forEach(function(counter){
+      var textarea=document.getElementById(counter.getAttribute('data-for'));
+      if(!textarea)return;
+      var max=parseInt(textarea.getAttribute('maxlength'))||500;
+      function update(){
+        var len=textarea.value.length;
+        counter.textContent=len+' / '+max;
+        counter.classList.toggle('near-limit',len>=max*0.8&&len<max);
+        counter.classList.toggle('at-limit',len>=max);
+      }
+      textarea.addEventListener('input',update);
+      update();
+    });
+  }
+
   /* Form submit → WhatsApp */
   function initFormSubmit(){
     var form=document.getElementById('apply-form');
     if(!form)return;
+
+    /* Clear error on input */
+    form.querySelectorAll('input,textarea').forEach(function(el){
+      el.addEventListener('input',function(){
+        el.closest('.field')&&el.closest('.field').classList.remove('has-error');
+      });
+    });
+
     form.addEventListener('submit',function(e){
       e.preventDefault();
-      if(!form.checkValidity()){form.reportValidity();return;}
+      /* Validate required fields are not empty */
+      var valid=true;
+      form.querySelectorAll('[required]').forEach(function(el){
+        var field=el.closest('.field');
+        if(field&&el.value.trim().length===0){
+          field.classList.add('has-error');
+          valid=false;
+        }
+      });
+      if(!valid||!form.checkValidity()){form.reportValidity();return;}
       var data=new FormData(form);
       var lang=document.documentElement.lang==='ur'?'ur':'en';
       var t=i18n[lang].form;
@@ -1534,6 +1594,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
   initMobileMenu();
   initLangToggle();
   initFormConditional();
+  initCharCounters();
   initFormSubmit();
 })();
 </script>

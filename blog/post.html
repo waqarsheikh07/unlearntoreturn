@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0A">
+<title>Blog — Unlearn to Return</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<!-- Marked.js for Markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked@15/marked.min.js"></script>
+<style>
+:root{
+  --bg:#0A0A0A;
+  --surface:#111111;
+  --text:#F5F1EA;
+  --text-muted:#9A9A9A;
+  --accent:#C9A961;
+  --accent-hover:#D9B970;
+  --border:rgba(255,255,255,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+body.lang-ur{
+  font-family:'Noto Nastaliq Urdu','Inter',system-ui,sans-serif;
+  line-height:1.9;
+}
+
+/* Nav */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:16px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-left{display:flex;align-items:center;gap:24px}
+.brand-logo{height:32px;width:auto;display:block}
+@media(min-width:768px){.brand-logo{height:36px}}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links a{
+  color:var(--text-muted);font-size:.875rem;text-decoration:none;
+  transition:color .2s ease;
+}
+.nav-links a:hover{color:var(--text)}
+.lang-toggle{display:flex;align-items:center;gap:8px}
+.lang-toggle button{
+  background:none;border:none;color:var(--text-muted);
+  font-size:.8rem;cursor:pointer;padding:4px 8px;
+  transition:color .2s ease;
+}
+.lang-toggle button.active{color:var(--accent)}
+
+/* Container */
+.container{max-width:720px;margin:0 auto;padding:0 24px}
+@media(min-width:768px){.container{padding:0 48px}}
+
+/* Post header */
+.post-header{
+  padding-top:120px;
+  padding-bottom:32px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:40px;
+}
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--text-muted);font-size:.85rem;text-decoration:none;
+  margin-bottom:24px;transition:color .2s ease;
+}
+.back-link:hover{color:var(--accent)}
+.post-header h1{
+  font-size:clamp(1.75rem,4vw,2.75rem);
+  font-weight:700;
+  letter-spacing:-.02em;
+  line-height:1.25;
+  margin-bottom:16px;
+}
+.post-meta{
+  font-size:.85rem;
+  color:var(--text-muted);
+  display:flex;gap:16px;
+}
+
+/* Article content */
+.post-content{padding-bottom:80px}
+.post-content h1{font-size:1.8rem;font-weight:700;margin:48px 0 20px;letter-spacing:-.01em}
+.post-content h2{font-size:1.4rem;font-weight:600;margin:40px 0 16px;color:var(--accent);letter-spacing:-.01em}
+.post-content h3{font-size:1.15rem;font-weight:600;margin:32px 0 12px}
+.post-content p{margin-bottom:1.25em;color:var(--text);font-size:1.05rem}
+.post-content em{color:var(--accent);font-style:italic}
+.post-content strong{font-weight:600;color:var(--text)}
+.post-content ul,.post-content ol{margin:0 0 1.25em 1.5em;color:var(--text)}
+.post-content li{margin-bottom:.5em;font-size:1.05rem}
+.post-content blockquote{
+  border-inline-start:3px solid var(--accent);
+  padding:12px 20px;
+  margin:24px 0;
+  background:rgba(201,169,97,.04);
+  color:var(--text-muted);
+  font-style:italic;
+}
+.post-content a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.post-content a:hover{color:var(--accent-hover)}
+.post-content hr{
+  border:none;
+  border-top:1px solid var(--border);
+  margin:40px 0;
+}
+.post-content code{
+  background:var(--surface);
+  padding:2px 6px;
+  border-radius:4px;
+  font-size:.9em;
+}
+.post-content pre{
+  background:var(--surface);
+  border:1px solid var(--border);
+  padding:20px;
+  overflow-x:auto;
+  margin:24px 0;
+  border-radius:8px;
+}
+.post-content img{max-width:100%;height:auto;border-radius:8px;margin:24px 0}
+
+/* Loading & error */
+.loading,.error-state{
+  text-align:center;padding:80px 0;color:var(--text-muted);
+}
+
+/* Footer */
+.footer{
+  border-top:1px solid var(--border);
+  padding:32px 0;
+  text-align:center;
+  color:var(--text-muted);
+  font-size:.8rem;
+}
+.footer a{color:var(--accent);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="../"><img src="../images/logo.png" alt="Unlearn to Return" class="brand-logo" width="528" height="65"></a>
+  </div>
+  <div class="nav-links">
+    <a href="../">Home</a>
+    <a href="./">Blog</a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-lang-btn="en" class="active">EN</button>
+      <span style="color:var(--text-muted);font-size:.75rem">|</span>
+      <button data-lang-btn="ur">اردو</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="post-header">
+    <a class="back-link" href="./">
+      <span>&larr;</span>
+      <span data-i18n-text='{"en":"Back to Blog","ur":"بلاگ پر واپس"}'>Back to Blog</span>
+    </a>
+    <h1 id="post-title">Loading...</h1>
+    <div class="post-meta" id="post-meta"></div>
+  </header>
+
+  <article class="post-content" id="post-content">
+    <div class="loading">Loading post...</div>
+  </article>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    &copy; 2026 <a href="../">Unlearn to Return</a>. All rights reserved.
+  </div>
+</footer>
+
+<script>
+(function(){
+  var lang='en';
+  try{lang=localStorage.getItem('lang')||'en';}catch(e){}
+
+  function setLang(l){
+    lang=l;
+    try{localStorage.setItem('lang',l);}catch(e){}
+    document.documentElement.lang=l;
+    document.documentElement.dir=l==='ur'?'rtl':'ltr';
+    document.body.classList.toggle('lang-ur',l==='ur');
+    document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+      b.classList.toggle('active',b.getAttribute('data-lang-btn')===l);
+    });
+    document.querySelectorAll('[data-i18n-text]').forEach(function(el){
+      try{
+        var t=JSON.parse(el.getAttribute('data-i18n-text'));
+        el.textContent=t[l]||t.en;
+      }catch(e){}
+    });
+    if(window._postData)renderPost(window._postData);
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+    b.addEventListener('click',function(){setLang(b.getAttribute('data-lang-btn'));});
+  });
+
+  var params=new URLSearchParams(window.location.search);
+  var slug=params.get('slug');
+
+  if(!slug){
+    document.getElementById('post-title').textContent='Post not found';
+    document.getElementById('post-content').innerHTML='<div class="error-state">No post specified. <a href="./">Go back to blog</a></div>';
+    setLang(lang);
+    return;
+  }
+
+  function renderPost(data){
+    var post=data.meta;
+    var title=lang==='ur'&&post.titleUr?post.titleUr:post.title;
+    document.getElementById('post-title').textContent=title;
+    document.title=title+' — Unlearn to Return';
+    var d=new Date(post.date+'T00:00:00');
+    var dateStr=d.toLocaleDateString(lang==='ur'?'ur-PK':'en-US',{year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('post-meta').innerHTML='<span>'+dateStr+'</span><span>'+post.author+'</span>';
+    document.getElementById('post-content').innerHTML=marked.parse(data.markdown);
+  }
+
+  /* Load post manifest + markdown */
+  fetch('posts.json?v='+Date.now())
+    .then(function(r){return r.json();})
+    .then(function(posts){
+      var post=posts.find(function(p){return p.slug===slug;});
+      if(!post){
+        document.getElementById('post-title').textContent='Post not found';
+        document.getElementById('post-content').innerHTML='<div class="error-state">This post doesn\'t exist. <a href="./">Go back to blog</a></div>';
+        return;
+      }
+      return fetch('posts/'+slug+'.md?v='+Date.now())
+        .then(function(r){return r.text();})
+        .then(function(md){
+          window._postData={meta:post,markdown:md};
+          renderPost(window._postData);
+        });
+    })
+    .catch(function(){
+      document.getElementById('post-content').innerHTML='<div class="error-state">Could not load post. <a href="./">Go back to blog</a></div>';
+    });
+
+  setLang(lang);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Reflections on Quran, Hadith, and the art of thinking — from Unlearn to Return.">
+<meta name="theme-color" content="#0A0A0A">
+<title>Blog — Unlearn to Return</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0A0A;
+  --surface:#111111;
+  --text:#F5F1EA;
+  --text-muted:#9A9A9A;
+  --accent:#C9A961;
+  --accent-hover:#D9B970;
+  --accent-dim:rgba(201,169,97,.12);
+  --border:rgba(255,255,255,.08);
+  --border-strong:rgba(255,255,255,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body.lang-ur{
+  font-family:'Noto Nastaliq Urdu','Inter',system-ui,sans-serif;
+  line-height:1.9;
+}
+
+/* Nav */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:16px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-left{display:flex;align-items:center;gap:24px}
+.brand-logo{height:32px;width:auto;display:block}
+@media(min-width:768px){.brand-logo{height:36px}}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-links a{
+  color:var(--text-muted);font-size:.875rem;text-decoration:none;
+  transition:color .2s ease;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.lang-toggle{display:flex;align-items:center;gap:8px}
+.lang-toggle button{
+  background:none;border:none;color:var(--text-muted);
+  font-size:.8rem;cursor:pointer;padding:4px 8px;
+  transition:color .2s ease;
+}
+.lang-toggle button.active{color:var(--accent)}
+
+/* Container */
+.container{max-width:800px;margin:0 auto;padding:0 24px}
+@media(min-width:768px){.container{padding:0 48px}}
+
+/* Page header */
+.page-header{
+  padding-top:120px;
+  padding-bottom:48px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:48px;
+}
+.page-header h1{
+  font-size:clamp(1.75rem,4vw,2.5rem);
+  font-weight:700;
+  letter-spacing:-.02em;
+  margin-bottom:12px;
+}
+.page-header p{
+  color:var(--text-muted);
+  font-size:1.05rem;
+  max-width:600px;
+}
+
+/* Post cards */
+.post-list{padding-bottom:80px}
+.post-card{
+  display:block;
+  padding:32px 0;
+  border-bottom:1px solid var(--border);
+  text-decoration:none;
+  color:inherit;
+  transition:opacity .2s ease;
+}
+.post-card:hover{opacity:.85}
+.post-card:first-child{padding-top:0}
+.post-meta{
+  font-size:.8rem;
+  color:var(--text-muted);
+  margin-bottom:10px;
+  display:flex;gap:16px;
+}
+.post-card h2{
+  font-size:1.35rem;
+  font-weight:600;
+  letter-spacing:-.01em;
+  margin-bottom:10px;
+  color:var(--text);
+  transition:color .2s ease;
+}
+.post-card:hover h2{color:var(--accent)}
+.post-card p{
+  color:var(--text-muted);
+  font-size:.95rem;
+  line-height:1.6;
+}
+.read-more{
+  display:inline-block;
+  margin-top:12px;
+  font-size:.85rem;
+  color:var(--accent);
+  font-weight:500;
+}
+
+/* Empty state */
+.empty-state{
+  text-align:center;
+  padding:80px 0;
+  color:var(--text-muted);
+}
+
+/* Footer */
+.footer{
+  border-top:1px solid var(--border);
+  padding:32px 0;
+  text-align:center;
+  color:var(--text-muted);
+  font-size:.8rem;
+}
+.footer a{color:var(--accent);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <a href="../"><img src="../images/logo.png" alt="Unlearn to Return" class="brand-logo" width="528" height="65"></a>
+  </div>
+  <div class="nav-links">
+    <a href="../">Home</a>
+    <a href="./" class="active">Blog</a>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-lang-btn="en" class="active">EN</button>
+      <span style="color:var(--text-muted);font-size:.75rem">|</span>
+      <button data-lang-btn="ur">اردو</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="page-header">
+    <h1 data-i18n-text='{"en":"Blog","ur":"بلاگ"}'>Blog</h1>
+    <p data-i18n-text='{"en":"Reflections on Quran, Hadith, and the art of thinking.","ur":"قرآن، حدیث، اور سوچ کے فن پر غور و فکر۔"}'>Reflections on Quran, Hadith, and the art of thinking.</p>
+  </header>
+
+  <div class="post-list" id="post-list">
+    <div class="empty-state">Loading posts...</div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    &copy; 2026 <a href="../">Unlearn to Return</a>. All rights reserved.
+  </div>
+</footer>
+
+<script>
+(function(){
+  var lang='en';
+  try{lang=localStorage.getItem('lang')||'en';}catch(e){}
+
+  function setLang(l){
+    lang=l;
+    try{localStorage.setItem('lang',l);}catch(e){}
+    document.documentElement.lang=l;
+    document.documentElement.dir=l==='ur'?'rtl':'ltr';
+    document.body.classList.toggle('lang-ur',l==='ur');
+    document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+      b.classList.toggle('active',b.getAttribute('data-lang-btn')===l);
+    });
+    document.querySelectorAll('[data-i18n-text]').forEach(function(el){
+      try{
+        var t=JSON.parse(el.getAttribute('data-i18n-text'));
+        el.textContent=t[l]||t.en;
+      }catch(e){}
+    });
+    renderPosts();
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+    b.addEventListener('click',function(){setLang(b.getAttribute('data-lang-btn'));});
+  });
+
+  var posts=[];
+  function renderPosts(){
+    var list=document.getElementById('post-list');
+    if(!posts.length){list.innerHTML='<div class="empty-state">'+(lang==='ur'?'ابھی کوئی پوسٹ نہیں ہے۔':'No posts yet.')+'</div>';return;}
+    var html='';
+    posts.forEach(function(p){
+      var title=lang==='ur'&&p.titleUr?p.titleUr:p.title;
+      var excerpt=lang==='ur'&&p.excerptUr?p.excerptUr:p.excerpt;
+      var readMore=lang==='ur'?'مزید پڑھیں ←':'Read more →';
+      var d=new Date(p.date+'T00:00:00');
+      var dateStr=d.toLocaleDateString(lang==='ur'?'ur-PK':'en-US',{year:'numeric',month:'long',day:'numeric'});
+      html+='<a class="post-card" href="post.html?slug='+p.slug+'">';
+      html+='<div class="post-meta"><span>'+dateStr+'</span><span>'+p.author+'</span></div>';
+      html+='<h2>'+title+'</h2>';
+      html+='<p>'+excerpt+'</p>';
+      html+='<span class="read-more">'+readMore+'</span>';
+      html+='</a>';
+    });
+    list.innerHTML=html;
+  }
+
+  fetch('posts.json?v='+Date.now())
+    .then(function(r){return r.json();})
+    .then(function(data){
+      posts=data.sort(function(a,b){return b.date.localeCompare(a.date);});
+      renderPosts();
+    })
+    .catch(function(){
+      document.getElementById('post-list').innerHTML='<div class="empty-state">Could not load posts.</div>';
+    });
+
+  setLang(lang);
+})();
+</script>
+</body>
+</html>
