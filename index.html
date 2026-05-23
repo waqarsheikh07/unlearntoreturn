@@ -1076,14 +1076,18 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
     <div class="apply-content reveal">
       <p class="apply-intro" data-i18n="apply.intro">This program is not for everyone. If you are serious, write to us. We respond only to applications that show real intent.</p>
       <form class="form" id="apply-form" novalidate>
+        <div class="field">
+          <label for="f-name"><span data-i18n="form.fullName">Full Name</span><span class="field-required">*</span></label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" minlength="2" maxlength="60">
+        </div>
         <div class="field-row">
           <div class="field">
-            <label for="f-name"><span data-i18n="form.fullName">Full Name</span><span class="field-required">*</span></label>
-            <input id="f-name" name="name" type="text" required autocomplete="name" minlength="2" maxlength="60">
+            <label for="f-email"><span data-i18n="form.email">Email</span><span class="field-required">*</span></label>
+            <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" maxlength="80">
           </div>
           <div class="field">
-            <label for="f-age"><span data-i18n="form.age">Age</span><span class="field-required">*</span></label>
-            <input id="f-age" name="age" type="number" min="14" max="100" required>
+            <label for="f-whatsapp"><span data-i18n="form.whatsapp">WhatsApp Number</span><span class="field-required">*</span></label>
+            <input id="f-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+92 3XX XXXXXXX" minlength="10" maxlength="16">
           </div>
         </div>
         <div class="field-row">
@@ -1092,8 +1096,8 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
             <input id="f-city" name="city" type="text" required autocomplete="address-level2" minlength="2" maxlength="40">
           </div>
           <div class="field">
-            <label for="f-whatsapp"><span data-i18n="form.whatsapp">WhatsApp Number</span><span class="field-required">*</span></label>
-            <input id="f-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+92 3XX XXXXXXX" minlength="10" maxlength="16">
+            <label for="f-age"><span data-i18n="form.age">Age</span><span class="field-required">*</span></label>
+            <input id="f-age" name="age" type="number" min="14" max="100" required>
           </div>
         </div>
         <div class="field">
@@ -1124,7 +1128,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
           <span class="char-count" data-for="f-worthy">0 / 500</span>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn" data-i18n="form.submit">Send via WhatsApp</button>
+          <button type="submit" class="btn" data-i18n="form.submit">Submit Application</button>
           <span class="form-direct">
             <span data-i18n="form.directLabel">Or contact directly:</span>
             <a id="direct-wa" href="https://wa.me/923184001193" target="_blank" rel="noopener">WhatsApp</a>
@@ -1250,6 +1254,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       },
       form:{
         fullName:"Full Name",
+        email:"Email",
         age:"Age",
         city:"City",
         whatsapp:"WhatsApp Number",
@@ -1261,7 +1266,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         canPayWaiver:"Need waiver",
         worthy:"Why are you a worthy learner?",
         worthyPlaceholder:"Sincerity. Specifics. Honesty.",
-        submit:"Send via WhatsApp",
+        submit:"Submit Application",
         directLabel:"Or contact directly:"
       },
       footer:{
@@ -1354,6 +1359,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       },
       form:{
         fullName:"پورا نام",
+        email:"ای میل",
         age:"عمر",
         city:"شہر",
         whatsapp:"واٹس ایپ نمبر",
@@ -1365,7 +1371,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         canPayWaiver:"فیس معافی چاہیے",
         worthy:"آپ اس علم کی حقدار کیوں ہیں؟",
         worthyPlaceholder:"اخلاص۔ تفصیل۔ ایمانداری۔",
-        submit:"واٹس ایپ پر بھیجیں",
+        submit:"درخواست جمع کریں",
         directLabel:"یا براہ راست رابطہ کریں:"
       },
       footer:{
@@ -1563,14 +1569,48 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         }
       });
       if(!valid||!form.checkValidity()){form.reportValidity();return;}
+
       var data=new FormData(form);
       var lang=document.documentElement.lang==='ur'?'ur':'en';
       var t=i18n[lang].form;
       var canPay=data.get('canPay');
       var canPayLabel=canPay==='yes'?t.canPayYes:(canPay==='no'?t.canPayNo:t.canPayWaiver);
+
+      /* 1. Fire Meta Lead event */
+      if(typeof fbq==='function'){
+        fbq('track','Lead',{
+          content_name:'Application Form',
+          content_category:'Quran Learning Program'
+        });
+      }
+
+      /* 2. Send to email via FormSubmit.co */
+      var emailData={
+        name:data.get('name')||'',
+        email:data.get('email')||'',
+        age:data.get('age')||'',
+        city:data.get('city')||'',
+        whatsapp:data.get('whatsapp')||'',
+        canPay:canPayLabel,
+        why:data.get('why')||'',
+        _subject:'New Application — Unlearn to Return',
+        _template:'table',
+        _captcha:'false'
+      };
+      if(canPay==='waiver'&&data.get('worthy')){
+        emailData.worthy=data.get('worthy');
+      }
+      fetch('https://formsubmit.co/ajax/contact@unlearntoreturn.com',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(emailData)
+      }).catch(function(){});
+
+      /* 3. Open WhatsApp with pre-filled message */
       var lines=[
         '*Application — Unlearn to Return*','',
         '*'+t.fullName+':* '+(data.get('name')||''),
+        '*'+t.email+':* '+(data.get('email')||''),
         '*'+t.age+':* '+(data.get('age')||''),
         '*'+t.city+':* '+(data.get('city')||''),
         '*'+t.whatsapp+':* '+(data.get('whatsapp')||''),
@@ -1582,6 +1622,11 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       }
       var message=encodeURIComponent(lines.join('\n'));
       window.open('https://wa.me/923184001193?text='+message,'_blank','noopener');
+
+      /* 4. Redirect to thank you page */
+      setTimeout(function(){
+        window.location.href='thank-you.html';
+      },500);
     });
   }
 
