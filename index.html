@@ -375,6 +375,16 @@ body.lang-ur .nav-links a{font-size:1rem}
   margin-bottom:48px;
 }
 body.lang-ur .hero .lede{line-height:2;font-size:clamp(1.1rem,2vw,1.4rem)}
+.hero-exclusive{
+  font-size:clamp(.95rem,1.6vw,1.15rem);
+  font-weight:600;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:40px;
+  max-width:680px;
+}
+body.lang-ur .hero-exclusive{letter-spacing:0;text-transform:none;font-size:clamp(1rem,1.8vw,1.2rem)}
 .hero-actions{
   display:flex;
   flex-wrap:wrap;
@@ -525,6 +535,17 @@ body.lang-ur .pull-quote{
 body.lang-ur .lens p{line-height:2;font-size:1rem}
 
 /* ---------- Audience ---------- */
+.audience-warning{
+  font-size:clamp(1rem,1.8vw,1.2rem);
+  font-weight:600;
+  color:var(--accent);
+  border-left:3px solid var(--accent);
+  padding-left:20px;
+  margin-bottom:48px;
+  max-width:720px;
+  line-height:1.7;
+}
+body.lang-ur .audience-warning{border-left:none;border-right:3px solid var(--accent);padding-left:0;padding-right:20px;line-height:2}
 .audience-grid{
   display:grid;
   gap:48px;
@@ -978,6 +999,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
     <div class="hero-content">
       <h1 data-i18n="hero.headline">Study the Quran like your mind depends on it.</h1>
       <p class="lede" data-i18n="hero.subline">A women-only learning circle that decodes the Quran and Hadith through science, politics, psychology, awareness, and power. So no one can manipulate you in the name of deen again.</p>
+      <p class="hero-exclusive" data-i18n="hero.exclusive">This is not for everyone. You must apply. You must prove why. We handpick every single candidate.</p>
       <div class="hero-actions">
         <a href="#apply" class="btn" data-i18n="hero.ctaPrimary">Apply Now</a>
         <a href="#philosophy" class="text-link" data-i18n="hero.ctaSecondary">Read the philosophy</a>
@@ -1014,6 +1036,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
 <section class="section" id="audience" aria-labelledby="audience-label">
   <div class="container">
     <p class="section-label reveal" id="audience-label" data-i18n="audience.label">Is This for You?</p>
+    <p class="audience-warning reveal" data-i18n="audience.warning">This program is not open to everyone. Every candidate is handpicked. You must apply with a clear, compelling reason why you want to study. If your reasoning does not convince us — you will not be selected.</p>
     <div class="audience-grid reveal">
       <div class="audience-col is-for">
         <h3 data-i18n="audience.forTitle">This is for you if…</h3>
@@ -1075,7 +1098,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
   <div class="container">
     <p class="section-label reveal" id="apply-label" data-i18n="apply.label">Apply</p>
     <div class="apply-content reveal">
-      <p class="apply-intro" data-i18n="apply.intro">This program is not for everyone. Candidates are handpicked. Write with depth and sincerity — we read every word and only select those who prove they belong here.</p>
+      <p class="apply-intro" data-i18n="apply.intro">This program is not for everyone. We handpick every candidate. You must write a specific, compelling reason why you want to study here. If your reasoning is not strong enough, you will not be selected. We read every word — generic answers are rejected.</p>
       <form class="form" id="apply-form" novalidate>
         <div class="field">
           <label for="f-name"><span data-i18n="form.fullName">Full Name</span><span class="field-required">*</span></label>
@@ -1099,7 +1122,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         </div>
         <div class="field">
           <label for="f-why"><span data-i18n="form.why">Why do you want to learn?</span><span class="field-required">*</span></label>
-          <textarea id="f-why" name="why" required data-min-words="200" data-i18n-attr="placeholder:form.whyPlaceholder" placeholder="Be specific. We read every word. Minimum 200 words."></textarea>
+          <textarea id="f-why" name="why" required data-min-words="200" data-i18n-attr="placeholder:form.whyPlaceholder" placeholder="Be specific. Generic answers are rejected. We read every word. Minimum 200 words."></textarea>
           <span class="word-count" data-for="f-why">0 / 200 words</span>
         </div>
         <div class="field">
@@ -1182,6 +1205,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       hero:{
         headline:"Study the Quran like your mind depends on it.",
         subline:"A women-only learning circle that decodes the Quran and Hadith through science, politics, psychology, awareness, and power. So no one can manipulate you in the name of deen again.",
+        exclusive:"This is not for everyone. You must apply. You must prove why. We handpick every single candidate.",
         ctaPrimary:"Apply Now",
         ctaSecondary:"Read the philosophy"
       },
@@ -1204,6 +1228,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       },
       audience:{
         label:"Is This for You?",
+        warning:"This program is not open to everyone. Every candidate is handpicked. You must apply with a clear, compelling reason why you want to study. If your reasoning does not convince us — you will not be selected.",
         forTitle:"This is for you if…",
         forItems:[
           "You think for yourself and want your deen to match that",
@@ -1244,7 +1269,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       },
       apply:{
         label:"Apply",
-        intro:"This program is not for everyone. Candidates are handpicked. Write with depth and sincerity — we read every word and only select those who prove they belong here."
+        intro:"This program is not for everyone. We handpick every candidate. You must write a specific, compelling reason why you want to study here. If your reasoning is not strong enough, you will not be selected. We read every word — generic answers are rejected."
       },
       form:{
         fullName:"Full Name",
@@ -1252,7 +1277,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         age:"Age",
         city:"City",
         why:"Why do you want to learn?",
-        whyPlaceholder:"Be specific. We read every word.",
+        whyPlaceholder:"Be specific. Generic answers are rejected. We read every word. Minimum 200 words.",
         canPay:"Can you pay the PKR 1,100 fee?",
         canPayYes:"Yes",
         canPayNo:"No",
@@ -1285,6 +1310,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       hero:{
         headline:"قرآن کو ایسے پڑھیں جیسے آپ کی عقل کا انحصار اسی پر ہو۔",
         subline:"صرف خواتین کے لیے ایک حلقہ، جہاں قرآن اور حدیث کو سائنس، سیاست، نفسیات، شعور اور طاقت کے زاویوں سے سمجھا جاتا ہے۔ تاکہ کوئی بھی آپ کو دین کے نام پر دوبارہ استعمال نہ کر سکے۔",
+        exclusive:"یہ ہر کسی کے لیے نہیں۔ آپ کو درخواست دینی ہوگی۔ آپ کو ثابت کرنا ہوگا کیوں۔ ہم ہر امیدوار کا انتخاب خود کرتے ہیں۔",
         ctaPrimary:"درخواست دیں",
         ctaSecondary:"فلسفہ پڑھیں"
       },
@@ -1307,6 +1333,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       },
       audience:{
         label:"کیا یہ آپ کے لیے ہے؟",
+        warning:"یہ پروگرام ہر کسی کے لیے کھلا نہیں۔ ہر امیدوار کا انتخاب ہاتھ سے کیا جاتا ہے۔ آپ کو ایک واضح اور مضبوط وجہ لکھنی ہوگی کہ آپ کیوں پڑھنا چاہتی ہیں۔ اگر آپ کی وجہ ہمیں قائل نہیں کرتی — آپ کا انتخاب نہیں ہوگا۔",
         forTitle:"یہ آپ کے لیے ہے اگر…",
         forItems:[
           "آپ خود سوچتی ہیں اور چاہتی ہیں کہ آپ کا دین بھی ویسا ہو",
@@ -1347,7 +1374,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       },
       apply:{
         label:"داخلہ",
-        intro:"یہ پروگرام ہر کسی کے لیے نہیں۔ امیدواروں کا انتخاب ہاتھ سے کیا جاتا ہے۔ گہرائی اور اخلاص سے لکھیں — ہم ہر لفظ پڑھتے ہیں اور صرف ان کا انتخاب کرتے ہیں جو ثابت کریں کہ وہ یہاں کی ہیں۔"
+        intro:"یہ پروگرام ہر کسی کے لیے نہیں۔ ہم ہر امیدوار کا انتخاب خود کرتے ہیں۔ آپ کو ایک مخصوص اور مضبوط وجہ لکھنی ہوگی کہ آپ یہاں کیوں پڑھنا چاہتی ہیں۔ اگر آپ کی وجہ کافی مضبوط نہیں — آپ کا انتخاب نہیں ہوگا۔ ہم ہر لفظ پڑھتے ہیں — عام جوابات رد کر دیے جاتے ہیں۔"
       },
       form:{
         fullName:"پورا نام",
@@ -1355,7 +1382,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         age:"عمر",
         city:"شہر",
         why:"آپ کیوں سیکھنا چاہتی ہیں؟",
-        whyPlaceholder:"تفصیل سے لکھیں۔ ہم ہر لفظ پڑھتے ہیں۔",
+        whyPlaceholder:"تفصیل سے لکھیں۔ عام جوابات رد کر دیے جاتے ہیں۔ ہم ہر لفظ پڑھتے ہیں۔ کم از کم 200 الفاظ۔",
         canPay:"کیا آپ 1,100 روپے ادا کر سکتی ہیں؟",
         canPayYes:"ہاں",
         canPayNo:"نہیں",
