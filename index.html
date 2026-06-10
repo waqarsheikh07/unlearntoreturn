@@ -777,7 +777,7 @@ body.lang-ur .field textarea{line-height:1.9}
 }
 .field input::placeholder,
 .field textarea::placeholder{color:#4a4a4a}
-.char-count{
+.word-count{
   display:block;
   text-align:right;
   font-size:.75rem;
@@ -786,8 +786,9 @@ body.lang-ur .field textarea{line-height:1.9}
   opacity:.7;
   transition:color .2s ease;
 }
-.char-count.near-limit{color:var(--accent);opacity:1}
-.char-count.at-limit{color:#e05252;opacity:1}
+.word-count.approaching{color:var(--accent);opacity:1}
+.word-count.met{color:#43E97B;opacity:1}
+.word-count.insufficient{color:#e05252;opacity:1}
 .field-error{
   font-size:.8rem;
   color:#e05252;
@@ -994,7 +995,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       <p data-i18n="philosophy.p1">Most religious learning teaches you to obey. This one teaches you to think. We do not study the Quran as a ritual. We study it as a system — a system that touches science, politics, human psychology, and the dynamics of power.</p>
       <p data-i18n="philosophy.p2">The teacher is not an Alim. She is not a Mufti. She is a thoughtful observer who has spent years reading, questioning, and connecting the Quran and Hadith to the real world. What she offers is not a lecture. It is a way of seeing.</p>
       <p data-i18n="philosophy.p3">You will leave this circle with sharper judgment, deeper context, and a mind that no scholar, politician, or family elder can easily mislead.</p>
-      <blockquote class="pull-quote" data-i18n="philosophy.quote">Islam is for intelligent people. Islam is for the warrior mindset.</blockquote>
+      <blockquote class="pull-quote" data-i18n="philosophy.quote">Islam is for people of wisdom. Islam is for the warrior mindset.</blockquote>
     </div>
   </div>
 </section>
@@ -1086,15 +1087,11 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
             <input id="f-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" maxlength="80">
           </div>
           <div class="field">
-            <label for="f-whatsapp"><span data-i18n="form.whatsapp">WhatsApp Number</span><span class="field-required">*</span></label>
-            <input id="f-whatsapp" name="whatsapp" type="tel" required autocomplete="tel" placeholder="+92 3XX XXXXXXX" minlength="10" maxlength="16">
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
             <label for="f-city"><span data-i18n="form.city">City</span><span class="field-required">*</span></label>
             <input id="f-city" name="city" type="text" required autocomplete="address-level2" minlength="2" maxlength="40">
           </div>
+        </div>
+        <div class="field-row">
           <div class="field">
             <label for="f-age"><span data-i18n="form.age">Age</span><span class="field-required">*</span></label>
             <input id="f-age" name="age" type="number" min="14" max="100" required>
@@ -1102,8 +1099,8 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         </div>
         <div class="field">
           <label for="f-why"><span data-i18n="form.why">Why do you want to learn?</span><span class="field-required">*</span></label>
-          <textarea id="f-why" name="why" required minlength="10" maxlength="500" data-i18n-attr="placeholder:form.whyPlaceholder" placeholder="Be specific. We read every word."></textarea>
-          <span class="char-count" data-for="f-why">0 / 500</span>
+          <textarea id="f-why" name="why" required data-min-words="200" data-i18n-attr="placeholder:form.whyPlaceholder" placeholder="Be specific. We read every word. Minimum 200 words."></textarea>
+          <span class="word-count" data-for="f-why">0 / 200 words</span>
         </div>
         <div class="field">
           <span class="field-group-label" data-i18n="form.canPay">Can you pay the PKR 1,100 fee?<span class="field-required">*</span></span>
@@ -1124,16 +1121,14 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         </div>
         <div class="field conditional" id="worthy-field">
           <label for="f-worthy"><span data-i18n="form.worthy">Why are you a worthy learner?</span><span class="field-required">*</span></label>
-          <textarea id="f-worthy" name="worthy" minlength="10" maxlength="500" data-i18n-attr="placeholder:form.worthyPlaceholder" placeholder="Sincerity. Specifics. Honesty."></textarea>
-          <span class="char-count" data-for="f-worthy">0 / 500</span>
+          <textarea id="f-worthy" name="worthy" data-min-words="200" data-i18n-attr="placeholder:form.worthyPlaceholder" placeholder="Sincerity. Specifics. Honesty. Minimum 200 words."></textarea>
+          <span class="word-count" data-for="f-worthy">0 / 200 words</span>
         </div>
         <div class="form-actions">
           <button type="submit" class="btn" data-i18n="form.submit">Submit Application</button>
           <span class="form-direct">
             <span data-i18n="form.directLabel">Or contact directly:</span>
-            <a id="direct-wa" href="https://wa.me/923184001193" target="_blank" rel="noopener">WhatsApp</a>
-            <span aria-hidden="true">&middot;</span>
-            <a id="direct-email" href="mailto:contact@unlearntoreturn.com">Email</a>
+            <a id="direct-email" href="mailto:contact@unlearntoreturn.com">contact@unlearntoreturn.com</a>
           </span>
         </div>
       </form>
@@ -1196,7 +1191,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         p1:"Most religious learning teaches you to obey. This one teaches you to think. We do not study the Quran as a ritual. We study it as a system — a system that touches science, politics, human psychology, and the dynamics of power.",
         p2:"The teacher is not an Alim. She is not a Mufti. She is a thoughtful observer who has spent years reading, questioning, and connecting the Quran and Hadith to the real world. What she offers is not a lecture. It is a way of seeing.",
         p3:"You will leave this circle with sharper judgment, deeper context, and a mind that no scholar, politician, or family elder can easily mislead.",
-        quote:"Islam is for intelligent people. Islam is for the warrior mindset."
+        quote:"Islam is for people of wisdom. Islam is for the warrior mindset."
       },
       lenses:{
         label:"What You Will Learn",
@@ -1301,7 +1296,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         p1:"زیادہ تر دینی تعلیم آپ کو اطاعت سکھاتی ہے۔ یہ آپ کو سوچنا سکھاتی ہے۔ ہم قرآن کو رسم کے طور پر نہیں پڑھتے۔ ہم اسے ایک نظام کے طور پر پڑھتے ہیں — ایسا نظام جو سائنس، سیاست، انسانی نفسیات اور طاقت کے رشتوں کو چھوتا ہے۔",
         p2:"معلمہ عالمہ نہیں ہیں۔ مفتیہ نہیں ہیں۔ وہ ایک سوچنے والی طالبہ ہیں جنہوں نے سالوں قرآن اور حدیث کو پڑھا، سوال کیا، اور اسے حقیقی دنیا سے جوڑا۔ یہ کوئی روایتی درس نہیں۔ یہ دیکھنے کا ایک نیا طریقہ ہے۔",
         p3:"اس حلقے سے نکل کر آپ کے پاس تیز فیصلہ، گہرا سیاق و سباق، اور ایک ایسی عقل ہوگی جسے کوئی عالم، سیاستدان، یا خاندان کا بزرگ آسانی سے گمراہ نہیں کر سکے گا۔",
-        quote:"اسلام ذہین لوگوں کے لیے ہے۔ اسلام warrior mindset والوں کے لیے ہے۔"
+        quote:"اسلام حکمت والوں کے لیے ہے۔ اسلام warrior mindset والوں کے لیے ہے۔"
       },
       lenses:{
         label:"آپ کیا سیکھیں گی",
@@ -1527,18 +1522,27 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
     });
   }
 
-  /* Character counters */
-  function initCharCounters(){
-    var counters=document.querySelectorAll('.char-count[data-for]');
+  /* Word counters */
+  function countWords(text){
+    var trimmed=text.trim();
+    if(!trimmed)return 0;
+    return trimmed.split(/\s+/).length;
+  }
+  function initWordCounters(){
+    var counters=document.querySelectorAll('.word-count[data-for]');
     counters.forEach(function(counter){
       var textarea=document.getElementById(counter.getAttribute('data-for'));
       if(!textarea)return;
-      var max=parseInt(textarea.getAttribute('maxlength'))||500;
+      var min=parseInt(textarea.getAttribute('data-min-words'))||200;
+      var lang=document.documentElement.lang==='ur'?'ur':'en';
+      var wordLabel=lang==='ur'?'الفاظ':'words';
       function update(){
-        var len=textarea.value.length;
-        counter.textContent=len+' / '+max;
-        counter.classList.toggle('near-limit',len>=max*0.8&&len<max);
-        counter.classList.toggle('at-limit',len>=max);
+        var words=countWords(textarea.value);
+        wordLabel=document.documentElement.lang==='ur'?'الفاظ':'words';
+        counter.textContent=words+' / '+min+' '+wordLabel;
+        counter.classList.remove('approaching','met','insufficient');
+        if(words>=min)counter.classList.add('met');
+        else if(words>=min*0.7)counter.classList.add('approaching');
       }
       textarea.addEventListener('input',update);
       update();
@@ -1570,6 +1574,22 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
       });
       if(!valid||!form.checkValidity()){form.reportValidity();return;}
 
+      /* Validate word counts on textareas */
+      var wordValid=true;
+      form.querySelectorAll('textarea[data-min-words]').forEach(function(ta){
+        var min=parseInt(ta.getAttribute('data-min-words'))||200;
+        var words=countWords(ta.value);
+        var field=ta.closest('.field');
+        var counter=field&&field.querySelector('.word-count');
+        if(ta.closest('.conditional')&&!ta.closest('.conditional.is-visible'))return;
+        if(words<min){
+          if(field)field.classList.add('has-error');
+          if(counter)counter.classList.add('insufficient');
+          wordValid=false;
+        }
+      });
+      if(!wordValid)return;
+
       var data=new FormData(form);
       var lang=document.documentElement.lang==='ur'?'ur':'en';
       var t=i18n[lang].form;
@@ -1590,7 +1610,6 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         email:data.get('email')||'',
         age:data.get('age')||'',
         city:data.get('city')||'',
-        whatsapp:data.get('whatsapp')||'',
         canPay:canPayLabel,
         why:data.get('why')||'',
         _subject:'New Application — Unlearn to Return',
@@ -1606,27 +1625,8 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
         body:JSON.stringify(emailData)
       }).catch(function(){});
 
-      /* 3. Open WhatsApp with pre-filled message */
-      var lines=[
-        '*Application — Unlearn to Return*','',
-        '*'+t.fullName+':* '+(data.get('name')||''),
-        '*'+t.email+':* '+(data.get('email')||''),
-        '*'+t.age+':* '+(data.get('age')||''),
-        '*'+t.city+':* '+(data.get('city')||''),
-        '*'+t.whatsapp+':* '+(data.get('whatsapp')||''),
-        '*'+t.canPay+'* '+canPayLabel,'',
-        '*'+t.why+'*',data.get('why')||''
-      ];
-      if(canPay==='waiver'&&data.get('worthy')){
-        lines.push('','*'+t.worthy+'*',data.get('worthy'));
-      }
-      var message=encodeURIComponent(lines.join('\n'));
-      window.open('https://wa.me/923184001193?text='+message,'_blank','noopener');
-
-      /* 4. Redirect to thank you page */
-      setTimeout(function(){
-        window.location.href='thank-you.html';
-      },500);
+      /* 3. Redirect to thank you page */
+      window.location.href='thank-you.html';
     });
   }
 
@@ -1639,7 +1639,7 @@ body.lang-ur .footer-copyright{font-family:var(--font-ur);letter-spacing:0;font-
   initMobileMenu();
   initLangToggle();
   initFormConditional();
-  initCharCounters();
+  initWordCounters();
   initFormSubmit();
 })();
 </script>
